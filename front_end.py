@@ -2,7 +2,8 @@
 from models import Owners, session
 from bp_auth import register, login
 from bp_owner import view_owner, update_owner, delete_owner
-
+from bp_pets import view_pets, create_pet, update_pet, delete_pet
+from bp_appointments import create_appointment, reschedule_appointment, view_appointments, complete_appointment
 def welcome_menu():
     current_user = None
     while True:
@@ -56,17 +57,13 @@ def pets_menu(current_user):
 5.) Back""")
         choice = input("choose 1-5: ")
         if choice == '1':
-            #function that displays the current user's pets
-            pass
+            view_pets(current_user)
         elif choice == '2':
-            #function to create a new pet linked to the current user, add to db
-            pass
+            create_pet(current_user)
         elif choice == '3':
-            #function to update a particular pet 
-            pass
+            update_pet(current_user)
         elif choice == '4':
-            #function to delete a particuler pet
-            pass
+            delete_pet(current_user)
         elif choice == '5':
             return
         else:
@@ -83,31 +80,26 @@ def appointments_menu(current_user):
 """)
         choice = input("choose 1-5: ")
         if choice == '1':
-            #Function to create a new appointment between one of the user's pets
-            #and one of the vets
-            pass
+            create_appointment(current_user)
         elif choice == '2':
-            #View current user's appointments
-            pass
+            view_appointments(current_user)
         elif choice == '3':
-            #Reschedule appointment (change the date)
-            pass
+            reschedule_appointment(current_user)
         elif choice == '4':
-            #Complete appointment (change status to complete)
-            pass
+            complete_appointment(current_user)
         elif choice =='5':
             return
 
 
 def main():
     
-    current_user = welcome_menu() 
+    # current_user = welcome_menu() 
 
     #After you test you login and register functions, it might be more efficient
     #to set current_user to a user in your db so you don't have to log in everytime
     #you want to test something.
 
-    # current_user = session.get(Owners, 1)
+    current_user = session.get(Owners, 1)
     
     if current_user:
         while True and current_user:
